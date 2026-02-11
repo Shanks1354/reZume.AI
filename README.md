@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎨 reZume.AI - Smart AI-Powered Resume Analyzer
 
 <div align="center">
@@ -416,3 +417,6 @@ If you find this project helpful, please consider giving it a star! ⭐
 [⬆ Back to Top](#-rezumeai---smart-ai-powered-resume-analyzer)
 
 </div>
+=======
+# reZume.AI
+>>>>>>> 8ef158ca5d8c15471dfde75dd7905ab005b27acc
