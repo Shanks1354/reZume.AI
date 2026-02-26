@@ -1,5 +1,5 @@
 """
-Utils package for Smart Resume AI
+Utils package for ReZume.AI
 """
 
 from .resume_analyzer import ResumeAnalyzer

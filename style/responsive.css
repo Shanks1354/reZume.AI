@@ -5,48 +5,46 @@
 /* Tablet and below (< 1024px) */
 @media (max-width: 1024px) {
     :root {
-        --space-lg: 20px;
-        --space-xl: 28px;
+        --sp-6: 16px;
+        --sp-8: 24px;
+        --sp-10: 32px;
     }
 
     .main .block-container {
-        padding-top: var(--space-md);
-        padding-bottom: var(--space-lg);
         max-width: 100%;
     }
 
+    .feature-grid,
     .template-container {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 12px;
     }
 
-    h1,
-    .h1 {
-        font-size: 28px;
+    h1 {
+        font-size: 26px;
     }
 
-    h2,
-    .h2 {
-        font-size: 22px;
+    h2 {
+        font-size: 20px;
     }
 }
 
 /* Tablet Portrait and below (< 768px) */
 @media (max-width: 768px) {
     :root {
-        --space-md: 12px;
-        --space-lg: 16px;
-        --space-xl: 24px;
+        --sp-4: 12px;
+        --sp-5: 16px;
+        --sp-6: 20px;
     }
 
     /* Adjust main container padding for mobile */
     .main {
-        padding: var(--space-md);
+        padding: var(--sp-4);
     }
 
     .main .block-container {
-        padding-top: var(--space-sm);
-        padding-bottom: var(--space-md);
+        padding-top: var(--sp-3);
+        padding-bottom: var(--sp-6);
     }
 
     /* Sidebar takes full width on mobile */
@@ -55,52 +53,38 @@
     }
 
     /* Stack cards vertically */
+    .feature-grid,
     .template-container {
         grid-template-columns: 1fr;
-        gap: var(--space-md);
+        gap: var(--sp-4);
     }
 
     /* Reduce card padding */
     .stCard,
     .modern-card,
     .card,
-    .form-section {
-        padding: var(--space-md);
+    .form-section,
+    .page-hero {
+        padding: var(--sp-4);
     }
 
     /* Make buttons full width on mobile */
     .stButton>button,
     .action-button {
         width: 100%;
-        padding: 12px var(--space-md);
     }
 
     /* Typography adjustments */
-    h1,
-    .h1 {
+    h1 {
         font-size: 24px;
     }
 
-    h2,
-    .h2 {
-        font-size: 20px;
+    h2 {
+        font-size: 18px;
     }
 
-    h3,
-    .h3 {
+    h3 {
         font-size: 16px;
-    }
-
-    .main-header h1 {
-        font-size: 24px;
-    }
-
-    .template-title {
-        font-size: 18px;
-    }
-
-    .form-section-title {
-        font-size: 18px;
     }
 
     /* Skill tags wrap better on mobile */
@@ -117,56 +101,28 @@
 /* Mobile (< 480px) */
 @media (max-width: 480px) {
     :root {
-        --space-sm: 6px;
-        --space-md: 10px;
-        --space-lg: 14px;
+        --sp-3: 8px;
+        --sp-4: 12px;
+        --sp-5: 16px;
     }
 
-    /* Even more compact spacing */
     .main {
-        padding: var(--space-sm);
+        padding: var(--sp-3);
     }
 
     .stCard,
     .modern-card,
     .card {
-        padding: var(--space-md);
-        margin-bottom: var(--space-sm);
+        padding: var(--sp-4);
+        margin-bottom: var(--sp-3);
     }
 
-    /* Smaller headers on very small screens */
-    h1,
-    .h1,
-    .main-header h1 {
-        font-size: 20px;
+    h1 {
+        font-size: 22px;
     }
 
-    h2,
-    .h2 {
+    h2 {
         font-size: 18px;
-    }
-
-    /* Template cards more compact */
-    .template-card {
-        padding: var(--space-md);
-    }
-
-    .template-icon {
-        font-size: 2rem;
-        margin-bottom: 12px;
-    }
-
-    .template-title {
-        font-size: 16px;
-    }
-
-    .template-description {
-        font-size: 13px;
-    }
-
-    /* Forms more compact */
-    .form-section {
-        padding: var(--space-md);
     }
 
     .form-input {
@@ -174,10 +130,7 @@
         font-size: 13px;
     }
 
-    /* Buttons slightly smaller */
-    .stButton>button,
-    .action-button {
-        padding: 10px var(--space-md);
+    .stButton>button {
         font-size: 13px;
     }
 }
@@ -197,35 +150,28 @@
    STREAMLIT-SPECIFIC RESPONSIVE FIXES
    ================================================= */
 
-/* Fix Streamlit sidebar on mobile */
 @media (max-width: 768px) {
-
-    /* Ensure sidebar button is visible */
     [data-testid="stSidebarNav"] {
-        padding-top: var(--space-md);
+        padding-top: var(--sp-4);
     }
 
-    /* Adjust expander on mobile */
     [data-testid="stExpander"] {
-        margin-bottom: var(--space-sm);
+        margin-bottom: var(--sp-3);
     }
 
-    /* File uploader responsive */
     [data-testid="stFileUploader"] {
-        padding: var(--space-md);
+        padding: var(--sp-4);
     }
 
-    /* Columns stack on mobile */
     [data-testid="column"] {
         min-width: 100% !important;
         width: 100% !important;
     }
 }
 
-/* Touch-friendly targets on mobile */
 @media (max-width: 768px) and (pointer: coarse) {
 
-    /* Increase touch targets */
+    /* Touch-friendly targets */
     .stButton>button,
     .action-button,
     a {
@@ -233,10 +179,9 @@
         min-width: 44px;
     }
 
-    /* Radio buttons and checkboxes */
     [data-testid="stRadio"] label,
     [data-testid="stCheckbox"] label {
-        padding: var(--space-sm);
+        padding: var(--sp-3);
         min-height: 44px;
         display: flex;
         align-items: center;

@@ -1,12 +1,12 @@
 ﻿"""
-Smart Resume AI - Main Application
+ReZume.AI - Main Application
 """
 import time
 from PIL import Image
 from jobs.job_search import render_job_search
 from datetime import datetime
 from ui_components import (
-    apply_modern_styles, hero_section, feature_card, about_section,
+    apply_modern_styles, hero_section, feature_card,
     page_header, render_analytics_section, render_activity_section,
     render_suggestions_section
 )
@@ -39,7 +39,7 @@ import datetime
 
 # Set page config at the very beginning
 st.set_page_config(
-    page_title="Smart Resume AI",
+    page_title="ReZume.AI",
     page_icon="🚀",
     layout="wide"
 )
@@ -79,13 +79,11 @@ class ResumeApp:
             st.session_state.is_admin = False
 
         self.pages = {
-            "🏠 HOME": self.render_home,
-            "🔍 RESUME ANALYZER": self.render_analyzer,
-            "📝 RESUME BUILDER": self.render_builder,
-            "📊 DASHBOARD": self.render_dashboard,
-            "🎯 JOB SEARCH": self.render_job_search,
-            "💬 FEEDBACK": self.render_feedback_page,
-            #"ℹ️ ABOUT": self.render_about  # Displays information about the app, creator, and features
+            "Dashboard": self.render_home,
+            "Analyze Resume": self.render_analyzer,
+            "Resume Builder": self.render_builder,
+            "Job Match": self.render_job_search,
+            "Feedback": self.render_feedback_page,
         }
 
         # Initialize dashboard manager
@@ -134,416 +132,29 @@ class ResumeApp:
 
     def load_lottie_url(self, url: str):
         """Load Lottie animation from URL"""
-        r = requests.get(url)
-        if r.status_code != 200:
+        try:
+            r = requests.get(url, timeout=2)
+            if r.status_code != 200:
+                return None
+            return r.json()
+        except Exception:
             return None
-        return r.json()
 
     def apply_global_styles(self):
         st.markdown("""
         <style>
-        /* VIBRANT MODERN SCROLLBAR */
-        ::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: linear-gradient(180deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 0 20px rgba(240, 147, 251, 0.7);
-        }
-
-        /* ANIMATED GRADIENT HEADER */
-        .main-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-size: 200% 200%;
-            animation: gradientFlow 5s ease infinite;
-            padding: 32px;
-            border-radius: 24px;
-            margin-bottom: 32px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .main-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            animation: rotate 10s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .main-header h1 {
-            color: white;
-            font-size: 32px;
-            font-weight: 800;
-            margin: 0;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-            animation: textPulse 2s ease infinite;
-        }
-
-        @keyframes textPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* VIBRANT TEMPLATE CARDS */
-        .template-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            padding: 0;
-        }
-
-        .template-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 28px;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: cardSlideIn 0.6s ease backwards;
-        }
-
-        @keyframes cardSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .template-card:nth-child(1) { animation-delay: 0.1s; }
-        .template-card:nth-child(2) { animation-delay: 0.2s; }
-        .template-card:nth-child(3) { animation-delay: 0.3s; }
-
-        .template-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            background-size: 200% 100%;
-            animation: shimmerMove 3s linear infinite;
-        }
-
-        @keyframes shimmerMove {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .template-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
-            border-color: rgba(240, 147, 251, 0.8);
-        }
-
-        .template-icon {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-            filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.6));
-            animation: iconFloat 3s ease infinite;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .template-title {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #1a1a2e 0%, #667eea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .template-description {
-            color: #2a2a4e;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        /* VIBRANT FEATURE LIST */
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            color: #2a2a4e;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .feature-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-right: 12px;
-            font-size: 18px;
-            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.4));
-        }
-
-        /* EXCITING GRADIENT BUTTONS */
-        .action-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            overflow: hidden;
-        }
-
-        .action-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .action-button:hover::before {
-            width: 400px;
-            height: 400px;
-        }
-
-        .action-button:hover {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 12px 40px rgba(240, 147, 251, 0.6);
-        }
-
-        .action-button:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-
-        .action-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
-            transition: all 0.6s ease;
-        }
-
-        .action-button:hover::before {
-            left: 100%;
-        }
-
-        /* GLASSMORPHIC FORM SECTIONS */
-        .form-section {
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(25px);
-            border-radius: 24px;
-            padding: 32px;
-            margin: 24px 0;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.25);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.4s ease;
-        }
-
-        .form-section:hover {
-            box-shadow: 0 12px 48px rgba(102, 126, 234, 0.35);
-            transform: translateY(-4px);
-        }
-
-        .form-section-title {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 3px solid;
-            border-image: linear-gradient(90deg, #667eea, #f093fb) 1;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            color: #2a2a4e;
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: block;
-            font-size: 15px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 14px;
-            border-radius: 16px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            background: rgba(255, 255, 255, 0.8);
-            color: #1a1a2e;
-            font-size: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
-            background: white;
-            outline: none;
-            transform: scale(1.02);
-        }
-
-        /* COLORFUL ANIMATED SKILL TAGS */
-        .skill-tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .skill-tag {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.35);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            animation: skillPop 0.5s ease backwards;
-            cursor: pointer;
-        }
-
-        @keyframes skillPop {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
-
-        .skill-tag:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transform: translateY(-4px) scale(1.1) rotate(-3deg);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        /* Progress Circle */
-        .progress-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 2rem auto;
-        }
-
-        .progress-circle {
-            transform: rotate(-90deg);
-            width: 100%;
-            height: 100%;
-        }
-
-        .progress-circle circle {
-            fill: none;
-            stroke-width: 8;
-            stroke-linecap: round;
-            stroke: #4CAF50;
-            transform-origin: 50% 50%;
-            transition: all 0.3s ease;
-        }
-
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: white;
-        }
+        /* Minimal SaaS global styles applied in style.css */
+        
         .main .block-container {
             padding-top: 2rem;
             padding-bottom: 2rem;
-        }
-        .feature-card {
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         /* Animations */
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
@@ -552,30 +163,7 @@ class ResumeApp:
         }
 
         .animate-slide-in {
-            animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .template-container {
-                grid-template-columns: 1fr;
-            }
-
-            .main-header {
-                padding: 1.5rem;
-            }
-
-            .main-header h1 {
-                font-size: 2rem;
-            }
-
-            .template-card {
-                padding: 1.5rem;
-            }
-
-            .action-button {
-                padding: 0.8rem 1.6rem;
-            }
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1263,7 +851,7 @@ class ResumeApp:
         # Hero Section
         st.markdown("""
             <div class="hero-section">
-                <h1 class="hero-title">About Smart Resume AI</h1>
+                <h1 class="hero-title">About ReZume.AI</h1>
                 <p class="hero-subtitle">A powerful AI-driven platform for optimizing your resume</p>
             </div>
         """, unsafe_allow_html=True)
@@ -1290,7 +878,7 @@ class ResumeApp:
                 </div>
                 <p class="bio-text">
                     Hello! I'm a passionate Full Stack Developer with expertise in AI and Machine Learning.
-                    I created Smart Resume AI to revolutionize how job seekers approach their career journey.
+                    I created ReZume.AI to revolutionize how job seekers approach their career journey.
                     With my background in both software development and AI, I've designed this platform to
                     provide intelligent, data-driven insights for resume optimization.
                 </p>
@@ -1306,7 +894,7 @@ class ResumeApp:
                 <i class="fas fa-lightbulb vision-icon"></i>
                 <h2 class="vision-title">Our Vision</h2>
                 <p class="vision-text">
-                    "Smart Resume AI represents my vision of democratizing career advancement through technology.
+                    "ReZume.AI represents my vision of democratizing career advancement through technology.
                     By combining cutting-edge AI with intuitive design, this platform empowers job seekers at
                     every career stage to showcase their true potential and stand out in today's competitive job market."
                 </p>
@@ -1375,11 +963,11 @@ class ResumeApp:
 
             # Display role information
             st.markdown(f"""
-            <div style='background-color: #1e1e1e; padding: 20px; border-radius: 10px; margin: 10px 0;'>
-                <h3>{selected_role}</h3>
-                <p>{role_info['description']}</p>
-                <h4>Required Skills:</h4>
-                <p>{', '.join(role_info['required_skills'])}</p>
+            <div class='card' style='background-color: var(--bg-dark-card); padding: 20px; border-radius: 10px; margin: 10px 0;'>
+                <h3 style='color: var(--text-primary);'>{selected_role}</h3>
+                <p style='color: var(--text-secondary);'>{role_info['description']}</p>
+                <h4 style='color: var(--text-primary);'>Required Skills:</h4>
+                <p style='color: var(--text-secondary);'>{', '.join(role_info['required_skills'])}</p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -2413,11 +2001,11 @@ class ResumeApp:
 
             # Display role information
             st.markdown(f"""
-            <div style='background-color: #1e1e1e; padding: 20px; border-radius: 10px; margin: 10px 0;'>
-                <h3>{selected_role}</h3>
-                <p>{role_info['description']}</p>
-                <h4>Required Skills:</h4>
-                <p>{', '.join(role_info['required_skills'])}</p>
+            <div class='card' style='background-color: var(--bg-dark-card); padding: 20px; border-radius: 10px; margin: 10px 0;'>
+                <h3 style='color: var(--text-primary);'>{selected_role}</h3>
+                <p style='color: var(--text-secondary);'>{role_info['description']}</p>
+                <h4 style='color: var(--text-primary);'>Required Skills:</h4>
+                <p style='color: var(--text-secondary);'>{', '.join(role_info['required_skills'])}</p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -2704,10 +2292,10 @@ class ResumeApp:
                                             
                                             with col2:
                                                 st.markdown("""
-                                                <div style="background-color: #262730; padding: 20px; border-radius: 10px; height: 100%;">
-                                                    <h4 style="color: #ffffff; margin-bottom: 15px;">What This Means</h4>
-                                                    <p style="color: #ffffff;">This score represents how well your resume matches the specific job description you provided.</p>
-                                                    <ul style="color: #ffffff; padding-left: 20px;">
+                                                <div class="card" style="height: 100%;">
+                                                    <h4 style="margin-bottom: 15px; color: var(--text-primary);">What This Means</h4>
+                                                    <p style="color: var(--text-secondary);">This score represents how well your resume matches the specific job description you provided.</p>
+                                                    <ul style="color: var(--text-secondary); padding-left: 20px;">
                                                         <li><strong>80-100:</strong> Excellent match - your resume is highly aligned with this job</li>
                                                         <li><strong>60-79:</strong> Good match - your resume matches many requirements</li>
                                                         <li><strong>Below 60:</strong> Consider tailoring your resume more specifically to this job</li>
@@ -2722,75 +2310,87 @@ class ResumeApp:
                                     # Replace section headers with styled headers
                                     section_styles = {
                                         "## Overall Assessment": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #1e3a8a, #3b82f6); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-chart-line"></i> Overall Assessment
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-chart-line section-icon"></i>
+                                                <h3>Overall Assessment</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Professional Profile Analysis": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #047857, #10b981); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-user-tie"></i> Professional Profile Analysis
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-user-tie section-icon"></i>
+                                                <h3>Professional Profile Analysis</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Skills Analysis": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #4f46e5, #818cf8); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-tools"></i> Skills Analysis
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-tools section-icon"></i>
+                                                <h3>Skills Analysis</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Experience Analysis": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #9f1239, #e11d48); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-briefcase"></i> Experience Analysis
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-briefcase section-icon"></i>
+                                                <h3>Experience Analysis</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Education Analysis": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #854d0e, #eab308); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-graduation-cap"></i> Education Analysis
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-graduation-cap section-icon"></i>
+                                                <h3>Education Analysis</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Key Strengths": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #166534, #22c55e); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-check-circle"></i> Key Strengths
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-check-circle section-icon"></i>
+                                                <h3>Key Strengths</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Areas for Improvement": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #9f1239, #fb7185); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-exclamation-circle"></i> Areas for Improvement
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-exclamation-circle section-icon"></i>
+                                                <h3>Areas for Improvement</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## ATS Optimization Assessment": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #0e7490, #06b6d4); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-robot"></i> ATS Optimization Assessment
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-robot section-icon"></i>
+                                                <h3>ATS Optimization Assessment</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Recommended Courses": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #5b21b6, #8b5cf6); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-book"></i> Recommended Courses
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-book section-icon"></i>
+                                                <h3>Recommended Courses</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Resume Score": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #0369a1, #0ea5e9); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-star"></i> Resume Score
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-star section-icon"></i>
+                                                <h3>Resume Score</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Role Alignment Analysis": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #7c2d12, #ea580c); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-bullseye"></i> Role Alignment Analysis
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-bullseye section-icon"></i>
+                                                <h3>Role Alignment Analysis</h3>
+                                            </div>
                                             <div class="section-content">""",
                                             
                                         "## Job Match Analysis": """<div class="report-section">
-                                            <h3 style="background: linear-gradient(90deg, #4d7c0f, #84cc16); color: white; padding: 10px; border-radius: 5px;">
-                                                <i class="fas fa-handshake"></i> Job Match Analysis
-                                            </h3>
+                                            <div class="report-section-header">
+                                                <i class="fas fa-handshake section-icon"></i>
+                                                <h3>Job Match Analysis</h3>
+                                            </div>
                                             <div class="section-content">""",
                                     }
                                     
@@ -2830,41 +2430,9 @@ class ResumeApp:
                                     formatted_analysis = formatted_analysis.replace("<div>", "<div>")  # Ensure proper opening
                                     formatted_analysis = formatted_analysis.replace("</div>", "</div>")  # Ensure proper closing
                                     
-                                    # Add CSS for the report
-                                    st.markdown("""
-                                    <style>
-                                        .report-section {
-                                            margin-bottom: 25px;
-                                            border: 1px solid #4B4B4B;
-                                            border-radius: 8px;
-                                            overflow: hidden;
-                                        }
-                                        .section-content {
-                                            padding: 15px;
-                                            background-color: #262730;
-                                            color: #ffffff;
-                                        }
-                                        .report-section h3 {
-                                            margin-top: 0;
-                                            font-weight: 600;
-                                        }
-                                        .report-section ul {
-                                            padding-left: 20px;
-                                        }
-                                        .report-section p {
-                                            color: #ffffff;
-                                            margin-bottom: 10px;
-                                        }
-                                        .report-section li {
-                                            color: #ffffff;
-                                            margin-bottom: 5px;
-                                        }
-                                    </style>
-                                    """, unsafe_allow_html=True)
-
                                     # Display the formatted analysis
                                     st.markdown(f"""
-                                    <div style="background-color: #262730; padding: 20px; border-radius: 10px; border: 1px solid #4B4B4B; color: #ffffff;">
+                                    <div class="card" style="padding: 0; background: transparent; border: none; box-shadow: none;">
                                         {formatted_analysis}
                                     </div>
                                     """, unsafe_allow_html=True)
@@ -2913,7 +2481,7 @@ class ResumeApp:
         
         # Hero Section
         hero_section(
-            "Smart Resume AI",
+            "ReZume.AI",
             "Transform your career with AI-powered resume analysis and building. Get personalized insights and create professional resumes that stand out."
         )
         
@@ -2948,7 +2516,7 @@ class ResumeApp:
                         help="Click to start analyzing your resume",
                         type="primary",
                         use_container_width=True):
-                cleaned_name = "🔍 RESUME ANALYZER".lower().replace(" ", "_").replace("🔍", "").strip()
+                cleaned_name = "Analyze Resume".lower().replace(" ", "_").strip()
                 st.session_state.page = cleaned_name
                 st.rerun()
 
@@ -3012,14 +2580,22 @@ class ResumeApp:
         
         # Admin login/logout in sidebar
         with st.sidebar:
-            st_lottie(self.load_lottie_url("https://assets5.lottiefiles.com/packages/lf20_xyadoh9h.json"), height=200, key="sidebar_animation")
-            st.title("Smart Resume AI")
+            st.markdown("<h2 style='text-align:center; padding: 10px 0;'>ReZume.AI</h2>", unsafe_allow_html=True)
             st.markdown("---")
             
             # Navigation buttons
+            icons = {
+                "Dashboard": ":material/dashboard:",
+                "Analyze Resume": ":material/analytics:",
+                "Resume Builder": ":material/draw:",
+                "Job Match": ":material/work:",
+                "Feedback": ":material/forum:"
+            }
+            
             for page_name in self.pages.keys():
-                if st.button(page_name, use_container_width=True):
-                    cleaned_name = page_name.lower().replace(" ", "_").replace("🏠", "").replace("🔍", "").replace("📝", "").replace("📊", "").replace("🎯", "").replace("💬", "").replace("ℹ️", "").strip()
+                icon = icons.get(page_name, None)
+                if st.button(f"{page_name}", icon=icon, use_container_width=True):
+                    cleaned_name = page_name.lower().replace(" ", "_").strip()
                     st.session_state.page = cleaned_name
                     st.rerun()
 
@@ -3069,7 +2645,7 @@ class ResumeApp:
         current_page = st.session_state.get('page', 'home')
         
         # Create a mapping of cleaned page names to original names
-        page_mapping = {name.lower().replace(" ", "_").replace("🏠", "").replace("🔍", "").replace("📝", "").replace("📊", "").replace("🎯", "").replace("💬", "").replace("ℹ️", "").strip(): name 
+        page_mapping = {name.lower().replace(" ", "_").strip(): name 
                        for name in self.pages.keys()}
         
         # Render the appropriate page
