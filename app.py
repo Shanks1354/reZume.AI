@@ -1369,10 +1369,10 @@ class ResumeApp:
 
         with analyzer_tabs[1]:
             st.markdown("""
-            <div style='background-color: #1e1e1e; padding: 20px; border-radius: 10px; margin: 10px 0;'>
-                <h3>AI-Powered Resume Analysis</h3>
-                <p>Get detailed insights from advanced AI models that analyze your resume and provide personalized recommendations.</p>
-                <p><strong>Upload your resume to get AI-powered analysis and recommendations.</strong></p>
+            <div style='background-color: #1e1e1e; color: #ffffff; padding: 20px; border-radius: 10px; margin: 10px 0;'>
+                <h3 style='color: #ffffff !important; -webkit-text-fill-color: #ffffff !important;'>AI-Powered Resume Analysis</h3>
+                <p style='color: #e0e0e0;'>Get detailed insights from advanced AI models that analyze your resume and provide personalized recommendations.</p>
+                <p style='color: #ffffff;'><strong>Upload your resume to get AI-powered analysis and recommendations.</strong></p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -1397,8 +1397,8 @@ class ResumeApp:
                 )
                 
                 st.markdown("""
-                <div style='background-color: #2e7d32; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                    <p><i class="fas fa-lightbulb"></i> <strong>Pro Tip:</strong> Including the actual job description significantly improves the accuracy of the analysis and provides more relevant recommendations tailored to the specific position.</p>
+                <div style='background-color: #2e7d32; color: #ffffff; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                    <p style='color: #ffffff;'><i class="fas fa-lightbulb"></i> <strong style='color: #ffffff;'>Pro Tip:</strong> Including the actual job description significantly improves the accuracy of the analysis and provides more relevant recommendations tailored to the specific position.</p>
                 </div>
                 """, unsafe_allow_html=True)
              

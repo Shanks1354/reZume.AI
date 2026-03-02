@@ -130,32 +130,41 @@ body {
     justify-content: flex-start !important;
     text-align: left !important;
     padding: var(--sp-3) var(--sp-4) !important;
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid transparent;
-    border-radius: var(--r-md);
-    transition: all var(--t-fast);
-    box-shadow: none;
-    font-weight: 500;
+    background: transparent !important;
+    color: var(--text-primary) !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--r-md) !important;
+    transition: all var(--t-fast) !important;
+    box-shadow: none !important;
+    font-weight: 600 !important;
 }
 
 [data-testid="stSidebar"] .stButton>button p,
 [data-testid="stSidebar"] .stButton>button span {
     text-align: left !important;
     margin: 0 !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    font-weight: 600 !important;
 }
 
 [data-testid="stSidebar"] .stButton>button:hover {
-    background: var(--bg-hover);
-    color: var(--accent);
-    transform: translateX(4px);
+    background: var(--bg-hover) !important;
+    color: var(--accent) !important;
+    transform: translateX(4px) !important;
     /* Slight slide animation */
+}
+
+[data-testid="stSidebar"] .stButton>button:hover p,
+[data-testid="stSidebar"] .stButton>button:hover span {
+    color: var(--accent) !important;
+    -webkit-text-fill-color: var(--accent) !important;
 }
 
 /* Active State for Sidebar Buttons (can be simulated with accent-light) */
 [data-testid="stSidebar"] .stButton>button:active {
-    background: var(--accent-light);
-    transform: scale(0.98);
+    background: var(--accent-light) !important;
+    transform: scale(0.98) !important;
 }
 
 /* ── Typography ─────────────────────────────────────────── */
@@ -232,8 +241,8 @@ p {
 
 /* ── Buttons ────────────────────────────────────────────── */
 .stButton>button {
-    background: var(--accent);
-    color: #FFFFFF;
+    background: var(--accent) !important;
+    color: #FFFFFF !important;
     border: none;
     padding: var(--sp-2) var(--sp-5);
     border-radius: var(--r-md);
@@ -247,8 +256,13 @@ p {
     box-shadow: none;
 }
 
+.stButton>button p,
+.stButton>button span {
+    color: #FFFFFF !important;
+}
+
 .stButton>button:hover {
-    background: var(--accent-hover);
+    background: var(--accent-hover) !important;
     box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
 }
 
@@ -257,30 +271,32 @@ p {
 }
 
 .stButton.secondary>button {
-    background: transparent;
-    color: var(--accent);
+    background: transparent !important;
+    color: var(--accent) !important;
     border: 1px solid var(--accent);
 }
 
-.stButton.secondary>button:hover {
-    background: var(--accent-light);
+.stButton.secondary>button p,
+.stButton.secondary>button span {
+    color: var(--accent) !important;
 }
 
-/* ── Inputs ─────────────────────────────────────────────── */
+.stButton.secondary>button:hover {
+    background: var(--accent-light) !important;
+}
+
+/* ── Inputs & Text Areas ───────────────────────────────── */
 .stTextInput>div>div,
-.stTextArea>div>div,
-.stSelectbox>div>div {
+.stTextArea>div>div {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--r-md);
     font-size: 14px;
-    color: var(--text-primary);
     transition: border-color var(--t-fast), box-shadow var(--t-fast);
 }
 
 .stTextInput>div>div:focus-within,
-.stTextArea>div>div:focus-within,
-.stSelectbox>div>div:focus-within {
+.stTextArea>div>div:focus-within {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-light);
     outline: none;
@@ -288,7 +304,8 @@ p {
 
 .stTextInput label,
 .stTextArea label,
-.stSelectbox label {
+.stSelectbox label,
+.stMultiSelect label {
     font-size: 13px;
     font-weight: 500;
     color: var(--text-secondary);
@@ -306,16 +323,52 @@ div[data-baseweb="input"] {
     border: 1px solid var(--border) !important;
     border-radius: var(--r-md) !important;
     padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    /* Fix vertical alignment */
 }
 
+/* Base input fields */
 div[data-baseweb="input"] input {
     background: transparent !important;
     border: none !important;
     color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     font-size: 14px !important;
-    padding: 10px 12px !important;
+    padding: 0 12px !important;
     height: 40px !important;
+    line-height: normal !important;
     outline: none !important;
+}
+
+/* Text Area specifically */
+div[data-baseweb="textarea"] {
+    background: var(--bg-card) !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+div[data-baseweb="textarea"] textarea {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 14px !important;
+    padding: 12px !important;
+    line-height: 1.6 !important;
+    outline: none !important;
+}
+
+/* Placeholder colors */
+div[data-baseweb="input"] input::placeholder,
+div[data-baseweb="textarea"] textarea::placeholder {
+    color: var(--text-muted) !important;
+    -webkit-text-fill-color: var(--text-muted) !important;
+    opacity: 0.7 !important;
 }
 
 div[data-baseweb="input"]:focus-within {
@@ -328,6 +381,108 @@ div[data-baseweb="input"] button {
     border: none !important;
     color: var(--text-muted) !important;
     cursor: pointer !important;
+}
+
+/* ── Selectbox & Multiselect (Dropdowns) ────────────────── */
+.stSelectbox>div>div>div,
+.stMultiSelect>div>div>div {
+    /* Prevent Streamlit wrapper from interfering */
+    background: transparent !important;
+}
+
+div[data-baseweb="select"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--r-md) !important;
+    min-height: 40px !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    padding: 4px !important;
+    /* Balanced padding */
+    cursor: pointer !important;
+}
+
+div[data-baseweb="select"]:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-light) !important;
+}
+
+/* Flex layout for vertical alignment */
+div[data-baseweb="select"]>div {
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    min-height: 30px !important;
+    /* Leaves room for exact 40px bounding box */
+    padding: 0 8px !important;
+    flex-wrap: wrap !important;
+    /* For multiselect tags */
+}
+
+/* Fix text cropping and visibility */
+div[data-baseweb="select"],
+div[data-baseweb="select"] *,
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] input {
+    font-size: 14px !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    line-height: normal !important;
+}
+
+div[data-baseweb="select"] span {
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+/* Fix multi-select input box */
+div[data-baseweb="select"] input {
+    min-height: 30px !important;
+    line-height: normal !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Dropdown arrow wrapper (Right side icon) */
+/* Targets the clear/arrow button container */
+div[data-baseweb="select"]>div>div:last-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+}
+
+/* Specifically target SVG dropdown arrow */
+div[data-baseweb="select"] svg {
+    fill: var(--text-secondary) !important;
+    width: 16px !important;
+    height: 16px !important;
+    display: inline-block !important;
+}
+
+/* Multiselect specific tags */
+span[data-baseweb="tag"] {
+    background: var(--accent-light) !important;
+    border: 1px solid var(--accent-border) !important;
+    border-radius: var(--r-sm) !important;
+    margin: 2px 4px 2px 0 !important;
+    padding: 2px 8px !important;
+    height: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+span[data-baseweb="tag"] span {
+    color: var(--accent) !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
 }
 
 /* ── File Uploader ──────────────────────────────────────── */
