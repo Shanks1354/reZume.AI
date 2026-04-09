@@ -1,4 +1,4 @@
-  import streamlit as st
+import streamlit as st
 
 def apply_modern_styles():
     """Apply modern styles by loading the CSS file"""
