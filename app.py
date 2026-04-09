@@ -1214,7 +1214,7 @@ class ResumeApp:
                             # Contact Section
                         if analysis.get('contact_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h3 style='color: #4F46E5; margin-bottom: 10px;'>📞 Contact Information</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
@@ -1229,7 +1229,7 @@ class ResumeApp:
                             # Summary Section
                         if analysis.get('summary_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h3 style='color: #4F46E5; margin-bottom: 10px;'>📝 Professional Summary</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
@@ -1245,7 +1245,7 @@ class ResumeApp:
                         if analysis.get(
                             'skills_suggestions') or analysis['keyword_match']['missing_skills']:
                                 st.markdown("""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h3 style='color: #4F46E5; margin-bottom: 10px;'>🎯 Skills</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
@@ -1268,7 +1268,7 @@ class ResumeApp:
                             # Experience Section
                         if analysis.get('experience_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h3 style='color: #4F46E5; margin-bottom: 10px;'>💼 Work Experience</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
@@ -1283,7 +1283,7 @@ class ResumeApp:
                             # Education Section
                         if analysis.get('education_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h3 style='color: #4F46E5; margin-bottom: 10px;'>🎓 Education</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
@@ -1298,7 +1298,7 @@ class ResumeApp:
                             # General Formatting Suggestions
                         if analysis.get('format_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h3 style='color: #4F46E5; margin-bottom: 10px;'>📄 Formatting</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
@@ -1331,7 +1331,7 @@ class ResumeApp:
                         courses[:6]):  # Show top 6 courses
                             with cols[i % 2]:
                                 st.markdown(f"""
-                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                <div style='background-color: #FFFFFF !important; border: 1px solid #E5E7EB; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 15px; border-radius: 10px; margin: 10px 0;'>
                                     <h4 style='color: #000000; margin-bottom: 8px;'>{course[0]}</h4>
                                     <a href='{course[1]}' target='_blank' style='color: #4F46E5; font-weight: 500;'>View Course</a>
                                 </div>
