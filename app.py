@@ -1214,14 +1214,14 @@ class ResumeApp:
                             # Contact Section
                         if analysis.get('contact_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h3 style='color: #4CAF50; margin-bottom: 10px;'>📞 Contact Information</h3>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h3 style='color: #4F46E5; margin-bottom: 10px;'>📞 Contact Information</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
                                 for suggestion in analysis.get(
                                     'contact_suggestions', []):
                                     st.markdown(
-    f"<li style='margin-bottom: 8px;'>✓ {suggestion}</li>",
+    f"<li style='margin-bottom: 8px; color: #1E293B;'>✓ {suggestion}</li>",
      unsafe_allow_html=True)
                                 st.markdown(
     "</ul></div>", unsafe_allow_html=True)
@@ -1229,14 +1229,14 @@ class ResumeApp:
                             # Summary Section
                         if analysis.get('summary_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h3 style='color: #4CAF50; margin-bottom: 10px;'>📝 Professional Summary</h3>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h3 style='color: #4F46E5; margin-bottom: 10px;'>📝 Professional Summary</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
                                 for suggestion in analysis.get(
                                     'summary_suggestions', []):
                                     st.markdown(
-    f"<li style='margin-bottom: 8px;'>✓ {suggestion}</li>",
+    f"<li style='margin-bottom: 8px; color: #1E293B;'>✓ {suggestion}</li>",
      unsafe_allow_html=True)
                                 st.markdown(
     "</ul></div>", unsafe_allow_html=True)
@@ -1245,22 +1245,22 @@ class ResumeApp:
                         if analysis.get(
                             'skills_suggestions') or analysis['keyword_match']['missing_skills']:
                                 st.markdown("""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h3 style='color: #4CAF50; margin-bottom: 10px;'>🎯 Skills</h3>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h3 style='color: #4F46E5; margin-bottom: 10px;'>🎯 Skills</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
                                 for suggestion in analysis.get(
                                     'skills_suggestions', []):
                                     st.markdown(
-    f"<li style='margin-bottom: 8px;'>✓ {suggestion}</li>",
+    f"<li style='margin-bottom: 8px; color: #1E293B;'>✓ {suggestion}</li>",
      unsafe_allow_html=True)
                                 if analysis['keyword_match']['missing_skills']:
                                     st.markdown(
-    "<li style='margin-bottom: 8px;'>✓ Consider adding these relevant skills:</li>",
+    "<li style='margin-bottom: 8px; color: #1E293B;'>✓ Consider adding these relevant skills:</li>",
      unsafe_allow_html=True)
                                     for skill in analysis['keyword_match']['missing_skills']:
                                         st.markdown(
-    f"<li style='margin-left: 20px; margin-bottom: 4px;'>• {skill}</li>",
+    f"<li style='margin-left: 20px; margin-bottom: 4px; color: #475569;'>• {skill}</li>",
      unsafe_allow_html=True)
                                 st.markdown(
     "</ul></div>", unsafe_allow_html=True)
@@ -1268,14 +1268,14 @@ class ResumeApp:
                             # Experience Section
                         if analysis.get('experience_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h3 style='color: #4CAF50; margin-bottom: 10px;'>💼 Work Experience</h3>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h3 style='color: #4F46E5; margin-bottom: 10px;'>💼 Work Experience</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
                                 for suggestion in analysis.get(
                                     'experience_suggestions', []):
                                     st.markdown(
-    f"<li style='margin-bottom: 8px;'>✓ {suggestion}</li>",
+    f"<li style='margin-bottom: 8px; color: #1E293B;'>✓ {suggestion}</li>",
      unsafe_allow_html=True)
                                 st.markdown(
     "</ul></div>", unsafe_allow_html=True)
@@ -1283,14 +1283,14 @@ class ResumeApp:
                             # Education Section
                         if analysis.get('education_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h3 style='color: #4CAF50; margin-bottom: 10px;'>🎓 Education</h3>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h3 style='color: #4F46E5; margin-bottom: 10px;'>🎓 Education</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
                                 for suggestion in analysis.get(
                                     'education_suggestions', []):
                                     st.markdown(
-    f"<li style='margin-bottom: 8px;'>✓ {suggestion}</li>",
+    f"<li style='margin-bottom: 8px; color: #1E293B;'>✓ {suggestion}</li>",
      unsafe_allow_html=True)
                                 st.markdown(
     "</ul></div>", unsafe_allow_html=True)
@@ -1298,14 +1298,14 @@ class ResumeApp:
                             # General Formatting Suggestions
                         if analysis.get('format_suggestions'):
                                 st.markdown("""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h3 style='color: #4CAF50; margin-bottom: 10px;'>📄 Formatting</h3>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h3 style='color: #4F46E5; margin-bottom: 10px;'>📄 Formatting</h3>
                                     <ul style='list-style-type: none; padding-left: 0;'>
                                 """, unsafe_allow_html=True)
                                 for suggestion in analysis.get(
                                     'format_suggestions', []):
                                     st.markdown(
-    f"<li style='margin-bottom: 8px;'>✓ {suggestion}</li>",
+    f"<li style='margin-bottom: 8px; color: #1E293B;'>✓ {suggestion}</li>",
      unsafe_allow_html=True)
                                 st.markdown(
     "</ul></div>", unsafe_allow_html=True)
@@ -1331,9 +1331,9 @@ class ResumeApp:
                         courses[:6]):  # Show top 6 courses
                             with cols[i % 2]:
                                 st.markdown(f"""
-                                <div style='background-color: #1e1e1e; padding: 15px; border-radius: 10px; margin: 10px 0;'>
-                                    <h4>{course[0]}</h4>
-                                    <a href='{course[1]}' target='_blank'>View Course</a>
+                                <div style='background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 10px; margin: 10px 0;'>
+                                    <h4 style='color: #1E293B; margin-bottom: 8px;'>{course[0]}</h4>
+                                    <a href='{course[1]}' target='_blank' style='color: #4F46E5; font-weight: 500;'>View Course</a>
                                 </div>
                                 """, unsafe_allow_html=True)
 
